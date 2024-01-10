@@ -1,36 +1,18 @@
 package Model;
-
 import jakarta.persistence.*;
-
 import java.sql.Date;
 import java.util.Calendar;
 import java.util.List;
 
-@Entity
-@NamedQuery(name = "Pracownik.all", query = "SELECT p FROM Pracownik p")
-@NamedQuery(name = "Pracownik.byId", query = "SELECT p FROM Pracownik p WHERE id =  :proacownikId")
-@NamedQuery(name = "Pracownik.byImie", query = "SELECT p FROM Pracownik p WHERE imie =  :imie")
-@NamedQuery(name = "Pracownik.byNazwisko", query = "SELECT p FROM Pracownik p WHERE nazwisko = :nazwisko")
-@NamedQuery(name = "Pracownik.byImieNazwisko", query = "SELECT p FROM Pracownik p WHERE id =  :imie AND nazwisko = :nazwisko")
 public class Pracownik {
-
-    @Id
-    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private long id;
-
     private String imie;
     private String nazwisko;
     private String stanowisko;
     private Date dataZatrudnienia;
-    private Date dataZwolnienia;
+    private Date dataZwolnienia = null;
     private double stawka;
-
-    @ManyToOne
-    @JoinColumn(name = "zakladStolarski_id")
     private ZakladStolarski zakladStolarski;
-    @OneToMany(mappedBy = "pracownik", cascade = CascadeType.ALL, orphanRemoval = true)
-    private List<Faktura> faktury;
-
 
     public Pracownik() {
     }
@@ -43,7 +25,6 @@ public class Pracownik {
         this.nazwisko = nazwisko;
         this.stanowisko = stanowisko;
         this.dataZatrudnienia = new Date(currentTimeMillis);
-        this.dataZwolnienia = null;
         this.stawka = stawka;
     }
 
@@ -104,12 +85,14 @@ public class Pracownik {
 
     @Override
     public String toString() {
-        return "Employee{" +
+        return "Pracownik{" +
                 "id=" + id +
-                ", name='" + imie + '\'' +
-                ", surname='" + nazwisko + '\'' +
-                ", position='" + stanowisko + '\'' +
+                ", imie='" + imie + '\'' +
+                ", nazwisko='" + nazwisko + '\'' +
+                ", stanowisko='" + stanowisko + '\'' +
                 '}';
     }
+
+
 }
 

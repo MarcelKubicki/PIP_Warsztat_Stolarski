@@ -1,5 +1,7 @@
 package com.example.demo;
 
+import Model.Element;
+import Model.Mebel;
 import Model.Pracownik;
 import Repository.PracownikRepo;
 import jakarta.persistence.*;
@@ -40,5 +42,13 @@ public class Main {
 //        for(Pracownik pracownik : pracownicy){
 //            System.out.println(pracownik.getImie() + pracownik.getNazwisko());
 //        }
+        Mebel szafka = new Mebel(1, "bialy", 150, 200, 50, 1, "stojaca, kuchenna", 2, 0);
+        System.out.println(szafka.obliczObjetosc());
+        szafka.obliczMaterial();
+        List<Element> elementy = szafka.getElementy();
+        for (Element element: elementy) {
+            System.out.println(element);
+        }
+
     }
 }
