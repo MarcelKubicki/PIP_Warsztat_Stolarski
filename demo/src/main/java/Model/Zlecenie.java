@@ -1,7 +1,6 @@
 package Model;
 
 import jakarta.persistence.*;
-
 import java.sql.Date;
 import java.util.ArrayList;
 import java.util.List;
@@ -14,9 +13,8 @@ public class Zlecenie {
 
     private long id;
     private Date dataPrzyjeciaZlecenia;
-    private Date dataRealizacjiZlecenia;
+    private Date deadlineZlecenia;
     private List<Mebel> meble;
-
     private double koszt;
     private boolean zrealizowano;
     private Faktura faktura;
@@ -24,9 +22,10 @@ public class Zlecenie {
     private List<Akcesorium> listaAkcesoriow;
     private List<Element> listaMaterialow;
 
-    public Zlecenie(long id, Date dataPrzyjeciaZlecenia) {
+    public Zlecenie(long id, Date dataPrzyjeciaZlecenia, Date deadlineZlecenia) {
         this.id = id;
         this.dataPrzyjeciaZlecenia = dataPrzyjeciaZlecenia;
+        this.deadlineZlecenia = deadlineZlecenia;
         this.listaAkcesoriow = new ArrayList<>();
         this.listaMaterialow = new ArrayList<>();
     }
@@ -37,6 +36,70 @@ public class Zlecenie {
 
     public List<Mebel> getMeble(){
         return meble;
+    }
+
+    public Date getDeadlineZlecenia() {
+        return deadlineZlecenia;
+    }
+
+    public void setDeadlineZlecenia(Date deadlineZlecenia) {
+        this.deadlineZlecenia = deadlineZlecenia;
+    }
+
+    public long getId() {
+        return id;
+    }
+
+    public Date getDataPrzyjeciaZlecenia() {
+        return dataPrzyjeciaZlecenia;
+    }
+
+    public double getKoszt() {
+        return koszt;
+    }
+
+    public boolean isZrealizowano() {
+        return zrealizowano;
+    }
+
+    public Faktura getFaktura() {
+        return faktura;
+    }
+
+    public List<Akcesorium> getListaAkcesoriow() {
+        return listaAkcesoriow;
+    }
+
+    public List<Element> getListaMaterialow() {
+        return listaMaterialow;
+    }
+
+    public void setId(long id) {
+        this.id = id;
+    }
+
+    public void setDataPrzyjeciaZlecenia(Date dataPrzyjeciaZlecenia) {
+        this.dataPrzyjeciaZlecenia = dataPrzyjeciaZlecenia;
+    }
+
+    public void setKoszt(double koszt) {
+        this.koszt = koszt;
+    }
+
+    public void setZrealizowano(boolean zrealizowano) {
+        this.zrealizowano = zrealizowano;
+    }
+
+    public void setFaktura(Faktura faktura) {
+        this.faktura = faktura;
+    }
+
+    public void setListaAkcesoriow(List<Akcesorium> listaAkcesoriow) {
+        this.listaAkcesoriow = listaAkcesoriow;
+    }
+
+    public void setListaMaterialow(List<Element> listaMaterialow) {
+        this.listaMaterialow = listaMaterialow;
     }
 
     public void obliczMaterial() {
@@ -105,6 +168,13 @@ public class Zlecenie {
         } catch (IOException e) {
             e.printStackTrace();
         }
+    }
+
+    public int dniDoDeadline() {
+        long currentTime = System.currentTimeMillis();
+        long deadlineTime = deadlineZlecenia.getTime();
+        long difference = deadlineTime - currentTime;
+        return (int) (difference / (1000 * 60 * 60 * 24));
     }
 
 }

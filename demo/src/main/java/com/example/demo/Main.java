@@ -56,19 +56,18 @@ public class Main {
         Mebel mebel1 = new Mebel(1, "Bialy", 100, 200, 50, 1, "Stojaca kuchenna", 2, 0);
         Mebel mebel2 = new Mebel(2, "Czarny", 120, 180, 40, 1, "Wiszaca", 0, 3);
 
-        // Tworzymy przykładowe zlecenie
-        Zlecenie zlecenie = new Zlecenie(1, Date.valueOf("2024-01-10"));
+        Zlecenie zlecenie = new Zlecenie(1, Date.valueOf("2024-01-10"), Date.valueOf("2024-03-10"));
 
-        // Dodajemy meble do listy mebli w zleceniu
+        int dniDoDeadline = zlecenie.dniDoDeadline();
+        System.out.println("Liczba dni do deadline'u: " + dniDoDeadline);
+
         List<Mebel> listaMebli = new ArrayList<>();
         listaMebli.add(mebel1);
         listaMebli.add(mebel2);
         zlecenie.setMeble(listaMebli);
 
-        // Obliczamy materiał dla mebli w zleceniu
         zlecenie.obliczMaterial();
 
-        // Generujemy PDF
         zlecenie.generujPDF("wykaz_elementow.pdf");
     }
 }
