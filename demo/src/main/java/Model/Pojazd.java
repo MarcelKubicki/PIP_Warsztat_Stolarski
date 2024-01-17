@@ -77,7 +77,18 @@ public class Pojazd {
     }
 
     public boolean mozePrzewiezc(Mebel mebel) {
-        return ladownosc >= mebel.obliczObjetosc();
+        double zliczonaLadownosc = 0.0;
+        for (Mebel x: przewozoneMeble) {
+            zliczonaLadownosc += x.obliczObjetosc();
+        }
+        return ((zliczonaLadownosc + mebel.obliczObjetosc()) < ladownosc);
+    }
+
+    public double obliczKosztTransportu(double odleglosc, double cenaPaliwa){
+        double koszt = 0.0;
+        double kosztJednaStrone = (odleglosc/100) * spalanie * cenaPaliwa;
+        koszt = 2 * kosztJednaStrone;
+        return koszt;
     }
 
     @Override

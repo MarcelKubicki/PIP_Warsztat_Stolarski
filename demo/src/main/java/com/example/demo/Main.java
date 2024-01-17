@@ -3,9 +3,12 @@ package com.example.demo;
 import Model.Element;
 import Model.Mebel;
 import Model.Pracownik;
+import Model.Zlecenie;
 import Repository.PracownikRepo;
 import jakarta.persistence.*;
 
+import java.sql.Date;
+import java.util.ArrayList;
 import java.util.List;
 
 public class Main {
@@ -50,5 +53,22 @@ public class Main {
             System.out.println(element);
         }
 
+        Mebel mebel1 = new Mebel(1, "Bialy", 100, 200, 50, 1, "Stojaca kuchenna", 2, 0);
+        Mebel mebel2 = new Mebel(2, "Czarny", 120, 180, 40, 1, "Wiszaca", 0, 3);
+
+        // Tworzymy przykładowe zlecenie
+        Zlecenie zlecenie = new Zlecenie(1, Date.valueOf("2024-01-10"));
+
+        // Dodajemy meble do listy mebli w zleceniu
+        List<Mebel> listaMebli = new ArrayList<>();
+        listaMebli.add(mebel1);
+        listaMebli.add(mebel2);
+        zlecenie.setMeble(listaMebli);
+
+        // Obliczamy materiał dla mebli w zleceniu
+        zlecenie.obliczMaterial();
+
+        // Generujemy PDF
+        zlecenie.generujPDF("wykaz_elementow.pdf");
     }
 }
